@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,12 +33,22 @@ Route::get('/welcome', function () {
 //Route::get('/services-fadsfasd-fasdfasd', [ContactController::class, 'index'])->name('services')->middleware('check');
 Route::get('/services-fadsfasd-fasdfasd', [ContactController::class, 'index'])->name('services');
 */
+//this route is automatically provided upon installing jetstream
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        //eloquent ORM getting all the data
+        //$users = User::all();
+        //Query Builder
+        $users = DB::table('users')->get();
+        return view('dashboard', compact('users'));
     })->name('dashboard');
 });
+
+//category route
+Route::get('/category/all', [CategoryController::class, 'AllCat'])->name('all.category');
+//add category route
+Route::post('/category/add', [CategoryController::class, 'AddCat'])->name('store.category');
