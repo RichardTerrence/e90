@@ -15,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    echo "Working on root directory";
+    return view('welcome');
 });
+/*
 Route::get('/about', function () {
     return view('about');
 });
@@ -28,3 +29,13 @@ Route::get('/welcome', function () {
 });
 //Route::get('/services-fadsfasd-fasdfasd', [ContactController::class, 'index'])->name('services')->middleware('check');
 Route::get('/services-fadsfasd-fasdfasd', [ContactController::class, 'index'])->name('services');
+*/
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
