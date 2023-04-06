@@ -27,10 +27,10 @@
                           </tr>
                         </thead> 
                         <tbody>
-                            @php($i=1)
+                            
                             @foreach ($categories as $category) 
                           <tr>
-                            <th scope="row">{{$i++}}</th>
+                            <th scope="row">{{$categories->firstItem()+$loop->index}}</th>
                             <td>{{$category->category_name}}</td>
                             <td>{{$category->user_id}}</td>
                             <td>{{$category->created_at}}</td>
@@ -45,6 +45,8 @@
                           @endforeach
                         </tbody>
                       </table>
+                      <!-- Pagination Links -->
+                      {{$categories->links()}}
                 </div>
                 <!-- card for add category --->
                 <div class="col-md-4">

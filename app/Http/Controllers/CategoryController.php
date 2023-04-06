@@ -18,9 +18,10 @@ class CategoryController extends Controller
         //modify to read data
         //$categories = Category::all();
         //get the latest
-        $categories = Category::latest()->get();
+        //$categories = Category::latest()->get();
+        $categories = Category::latest()->paginate(5);
         //Query builder
-        $categories = DB::table('categories')->latest()->get();
+        //$categories = DB::table('categories')->latest()->get();
         //use compact() to send the result to page or view
         return view('admin.category.index', compact('categories'));
     }
