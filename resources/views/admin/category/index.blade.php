@@ -20,20 +20,29 @@
                         <thead class="table-primary">
                           <tr>
                             <th scope="col">List No.</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Registration</th>
+                            <th scope="col">Category Name</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Date of Creation</th>
                             <th scope="col">Period</th>
                           </tr>
                         </thead> 
                         <tbody>
+                            @php($i=1)
+                            @foreach ($categories as $category) 
                           <tr>
-                            <th scope="row">0</th>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
+                            <th scope="row">{{$i++}}</th>
+                            <td>{{$category->category_name}}</td>
+                            <td>{{$category->user_id}}</td>
+                            <td>{{$category->created_at}}</td>
+                            <td>
+                              @if($category->created_at==NULL)
+                                  <span class="text-danger">Date Not Set</span>
+                              @else
+                              {{Carbon\Carbon::parse($category->created_at)->diffForHumans()}}
+                              @endif
+                            </td>
                           </tr>
+                          @endforeach
                         </tbody>
                       </table>
                 </div>
